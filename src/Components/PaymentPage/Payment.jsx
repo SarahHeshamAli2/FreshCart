@@ -85,7 +85,7 @@ try {
 
 
  return<>
-  <div className="container w-50 m-auto my-5 py-5">
+  <div className="container w-50 m-auto my-4 py-5">
     <form >
     <label className='my-2' htmlFor="address">Address details</label>
     <input id='address' type="text" className='form-control' placeholder='street name / building name' />
