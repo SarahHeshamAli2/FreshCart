@@ -22,16 +22,16 @@ getAllBrands()
 },[])
 
   return <>
-    {allBrands ?     <div className="container">
+    {allBrands ?     <div className="container my-5 py-5">
         <div className="row align-items-center">
-            <div className="col-md-3">
+            <div className="col-md-3 ">
                 <h4 className='text-primary fw-bolder'>Our Brands</h4>
                 <p>you can see our brands and each brand included in it</p>
             </div>
-            {allBrands.map((brand,index)=>     < div className="col-md-3" key={index}>
+            {allBrands.map((brand,index)=>     < div className="col-md-3 col-sm-4 col-5" key={index}>
              <Link to={`/brandDetails/${brand._id}`} className='text-decoration-none'>
              
-             <div className="inner-col">
+             <div className="inner-col ">
                     <img src={brand.image} alt="" className='w-100' />
                     <p className='text-center text-primary fw-bolder'>{brand.name}</p>
                 

@@ -225,8 +225,50 @@ a {
   }
   .dropDetails {
     display: block !important;
+    position: sticky !important;
+    top: 25% !important;
+
   }
   .right-payment {
     display: none !important;
   }
+  .sort {
+
+    padding: 0;
+  }
  }
+
+
+ .paginationBttns {
+  margin-top: 50px;
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+ }
+ .paginationBttns a {
+  padding: 13px;
+  margin: 8px;
+
+ }
+
+
+
+ .paginationActive a {
+
+ 
+  border-radius: 5px;
+  border: 1px solid;
+  color: blue !important;
+ }
+
+.offline {
+
+  position: fixed;
+  z-index: 99999999999999;
+  bottom: 30px;
+  box-shadow: var(--shadow);
+  background-color: #dddd;
+  padding: 50px;
+}

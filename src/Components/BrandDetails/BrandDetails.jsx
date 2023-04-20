@@ -20,7 +20,7 @@ export default function BrandDetails() {
   const [proDetail, setproDetail] = useState([])
   const [allImages, setallImages] = useState([])
   const [isDone , setIsDone] = useState (false)
-  const {addProductToCart,isLoad} =useContext(cartStore)
+  const {addProductToCart,isLoad,addToWhishList,lo} =useContext(cartStore)
 
 async function getBrandDetails () {
   try {
@@ -66,7 +66,7 @@ const [brandDetails, setBrandDetails] = useState(null)
     {brandDetails ? <div className="container my-5 py-5">
    
         <div className="row g-5">
-            {brandDetails.length == 0 ? <NoItems/> : brandDetails.map((pro,indx)=>     < div className="col-md-4 hover-quick position-relative" key={indx}>
+            {brandDetails.length == 0 ? <NoItems/> : brandDetails.map((pro,indx)=>     < div className="col-md-4 col-5 hover-quick position-relative" key={indx}>
             <Link to={`/prodetails/${pro.id}`} className='text-decoration-none '>
         
         <div className="inner-col ">
@@ -125,8 +125,13 @@ const [brandDetails, setBrandDetails] = useState(null)
 } 
     <div>
 
-<button className='btn border border-2 my-2 love-btn'>    <i className="fa-regular fa-heart"></i>Add to Loves</button>
-    </div>
+    {lo? <i className="fa-solid fa-heart text-secondary mx-2 fa-spin"></i> :<button type='button' onClick={function(){addToWhishList(proDetail._id)}} className='btn border border-2 my-2 love-btn' >    <i className="fa-solid fa-heart text-secondary mx-2 "></i>Add to Loves</button>
+
+}   
+<div style={{display:"none"}} className='alert alert-success suc position-absolute top-50 end-0'>Item added successfully to wishList</div>
+
+
+ </div>
                   </div>
                  
                       

@@ -38,7 +38,7 @@ return <>
     </div>
 </div>
 {
-    order.cartItems.map((item,spc)=> <div className="col-md-2" key={spc}>
+    order.cartItems.map((item,spc)=> <div className="col-md-2 col-6" key={spc}>
     <div className="inner d-flex align-items-center">
         <div>
         <img src={item.product.imageCover} alt="" className='w-100 '/>

@@ -7,10 +7,6 @@ import { Link, useNavigate } from 'react-router-dom'
 
 
 
-
-
-
-
 export default function Login({getUserDataDecoded, currentUser}) {
 const user = {
 
@@ -20,7 +16,6 @@ password:"",
 
 
 }
-
 
 
 let validation = Yup.object({
@@ -167,9 +162,14 @@ password:Yup.string().required("password is requried").matches(/^[A-Z][a-z0-9]{5
 
       
 
-        {isLoading? <button  className='btn btn-success load-bt' type='button'><i className="fa-solid fa-spinner fa-spin  mt-3"></i></button>:<button type='submit' className='btn btn-success mt-3 log-bt'>Login</button>}
-        <p className='my-3'>New to freshCart ? <Link to="/register">Sign Up</Link></p>
-
+    
+    
+        {isLoading? <button  className='btn btn-primary load-bt' type='button'><i className="fa-solid fa-spinner fa-spin  mt-3"></i></button>:<button type='submit' className='btn btn-primary mt-3 log-bt'>Login</button>}
+        <div className='my-2'>
+ 
+        </div>
+            <p className='my-3'>New to freshCart ? <Link to="/register">Sign Up</Link></p>
+   
         
 
         

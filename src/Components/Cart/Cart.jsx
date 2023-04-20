@@ -31,7 +31,7 @@ getCart()
 
     {cartProducts ? 
     
-    <div className="container my-5 py-5">
+    <div className="container my-5 py-5 ">
 
 {  numberOfCartItems <=0 ? <EmptyCart/> :"" }
 
@@ -64,11 +64,11 @@ getCart()
 
    {cartProducts.map((pro,indx)=>  <div className="row align-items-center border-bottom py-2 my-2" key={indx}>
  
-   <div className="col-md-2">
+   <div className="col-md-2 col-6 p-0">
 
 <img src={pro.product.imageCover} alt=""  className='w-100'/>
 </div>     
-<div className="col-md-10 ">
+<div className="col-md-10 col-6 ">
         <div className="left">
         <h6>
        {pro.product.title?.slice(0,pro.product.title.indexOf(" " , 20))}

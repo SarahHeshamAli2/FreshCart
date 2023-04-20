@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState,useEffect } from 'react'
 import { cartStore } from '../../Context/CartStore';
 import { useNavigate } from 'react-router-dom';
 import $ from "jquery"
@@ -13,7 +13,8 @@ export default function Payment() {
     const navigate=useNavigate()
 const {cartId}= useContext(cartStore)
 const [loading, setLoading] = useState(false)
-const [loader , setLoader] = useState(false)
+const [loader , setLoader] = useState(null)
+const [loads , setLoads] = useState(false)
 
 async function cashOrder() {
     try {
@@ -52,6 +53,7 @@ async function cashOrder() {
 
 
 
+
 async function creditOrder () {
     setLoader(true)
 
@@ -70,6 +72,12 @@ try {
         window.open(data.session.url)
     }
     setLoader(false)
+     {
+
+    
+    }
+   
+    
 
 } catch (error) {
     console.log("error:",error);
@@ -95,7 +103,16 @@ try {
     <input id='city' type="text" placeholder='e.g. Dokki / New cairo' className='form-control'/>
     <div style={{display:'none'}} className='fw-bolder my-3'>Please wait..</div> 
 
-    {loading  ?<button className='btn btn-primary ' type='button'> <i className="fa-solid fa-spinner fa-spin  fs-1 "></i></button> :     <button onClick={function(){cashOrder()}} type='button' className='btn btn-primary my-2'>Cash On Delivery</button>}
+    {loading  ?
+    
+    
+    <button className='btn btn-primary ' type='button'> <i className="fa-solid fa-spinner fa-spin  fs-1 "></i></button> : 
+        <div className='d-flex justify-content-between align-items-center'>
+              <button onClick={function(){cashOrder()}} type='button' className='btn btn-primary my-2'>Cash On Delivery</button>
+ 
+        </div>
+    
+      }
     <div className='d-flex justify-content-between align-items-center'>
        <div className="inner">
        {loader?<button className='btn btn-primary ' type='button'> <i className="fa-solid fa-spinner fa-spin  fs-1 "></i></button>    :  <button onClick={creditOrder} type='button' className='btn btn-primary my-2'>Pay with card</button>}
@@ -112,7 +129,7 @@ try {
         <p>Your Order is Confirmed !</p>
           <button onClick={function(){navigate("/")}} className=' btn btn-success btn-sm'>Continue shopping</button>
     </div>
-   
+      <p style={{display:"none"}} className='alert alert-success saveAdress'>Adress Saved !</p>
 
     </form>
  </div>

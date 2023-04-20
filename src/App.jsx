@@ -15,7 +15,7 @@ import jwtDecode from 'jwt-decode'
 import Profile from './Components/Profie/Profile'
 
 
-import CategorySlider from './Components/CategorySlider/CategorySlider'
+
 import CartStoreProvider from './Context/CartStore'
 import Cart from './Components/Cart/Cart'
 import Payment from './Components/PaymentPage/Payment'
@@ -24,6 +24,7 @@ import AllOrders from './Components/AllOrders/AllOrders'
 import EmptyCart from './Components/EmptyCart/EmptyCart'
 import WishList from './Components/getWishList/WishList'
 import ForgotPass from './Components/ForgotPass/ForgotPass'
+
 
 
 export default function App() {
@@ -47,6 +48,9 @@ export default function App() {
 
 
     useEffect(function(){
+
+
+  
 if(localStorage.getItem("userToken") !=null && currentUser == null) {
 
     getUserDataDecoded()
@@ -83,7 +87,7 @@ const router = createHashRouter([
     {path:"",element:<CartStoreProvider><Layout clearUserData={clearUserData}  currentUser={currentUser}/></CartStoreProvider>,children:[{index:true,element:<CartStoreProvider><Home  currentUser={currentUser} /></CartStoreProvider>},
     {path:"home" , element:<Home />},
     
-    {path:"login",element:<Login getUserDataDecoded={getUserDataDecoded} currentUser={currentUser} />},
+    {path:"login",element:<Login  getUserDataDecoded={getUserDataDecoded} currentUser={currentUser} />},
     {path:"prodetails/:id",element:<CartStoreProvider><ProDetails/></CartStoreProvider>},
     {path:"profile" , element:<ProtectedRoute><Profile currentUser={currentUser}/></ProtectedRoute>},
     {path:"brandDetails/:id",element:<CartStoreProvider><BrandDetails/></CartStoreProvider>},

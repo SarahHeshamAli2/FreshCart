@@ -22,7 +22,9 @@ const [cartProducts, setCartProducts] = useState(null)
 const [cartId, setCartId] = useState(null)
 const [createdAt, setCreatedAt] = useState(null)
 const [lo,setIsLo] = useState(false)
-
+const [wishList, setWishList] = useState(null)
+const [proDetail, setproDetail] = useState([])
+const [Lod, setLod] = useState(null)
 function validateUpdatedCart() {
         let inputs=Array.from(document.querySelectorAll(".inp"))
         let buttons =Array.from (document.querySelectorAll("#decBtn"))
@@ -64,6 +66,53 @@ async function deleteItemFromCart(id) {
         }
 
 }
+async function deleteFromWishList(id) {
+        setIsLoad(true)
+try {
+        const {data}  = await  axios.delete(`https://route-ecommerce.onrender.com/api/v1/wishlist/${id}`,{
+                headers:{"token":localStorage.getItem("userToken")}
+             })
+             console.log(data);
+             setWishList(data.data)
+
+             if(data.status == "success") {
+                getWhishList()
+                $(".rm-ms").fadeIn(500,function(){
+                    setTimeout(() => {
+                        $(".rm-ms").fadeOut(500)
+                    }, 1000);
+                })
+             }
+             
+   setIsLoad(false)       
+           
+        } catch (error) {
+        console.log("error:" , error);
+        
+}
+
+}
+
+async function getWhishList() {
+
+        try {   
+            setLod(true)
+                const {data}= await axios.get(`https://route-ecommerce.onrender.com/api/v1/wishlist`,{
+                headers: {"token" : localStorage.getItem("userToken")}
+        })
+        
+      
+    setWishList(data.data)
+    setproDetail(data.data)
+    console.log(data);
+setLod(false)
+        } catch (error) {
+                console.log("error",error);
+        }
+        }
+
+
+
 
 
         async function addProductToCart(proId) {
@@ -101,6 +150,8 @@ async function deleteItemFromCart(id) {
                                                 $(".modal-backdrop").removeClass("show").addClass("d-none")
                                                 $(".notLogged").fadeOut(500)
                                                navigate("/login") 
+                                               $("body").css("overflow","visible")
+
                                         }, 2000);
                                 })
                         }
@@ -222,7 +273,7 @@ if(data.status=="success") {
         }
 
 }
-        return <cartStore.Provider value={{addProductToCart,isLoad,cartData,numberOfCartItems,totalCartPrice,cartProducts,isLoad,deleteItemFromCart, updateCartProducts,getCartProducts,cartId,addToWhishList,lo}}>
+        return <cartStore.Provider value={{addProductToCart,isLoad,cartData,numberOfCartItems,totalCartPrice,cartProducts,isLoad,deleteItemFromCart, updateCartProducts,getCartProducts,cartId,addToWhishList,lo,deleteFromWishList,getWhishList,wishList}}>
      
         <p style={{zIndex:"58851471",display:"none"}} className='alert alert-danger position-fixed top-50 notLogged'>You are not logged in. Please login to get access</p>
                  
