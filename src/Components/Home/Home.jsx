@@ -6,7 +6,6 @@ import {Link, useParams} from "react-router-dom"
 import CategorySlider from '../CategorySlider/CategorySlider'
 import HomeSlider from '../HomeSlider/HomeSlider'
 import { cartStore } from '../../Context/CartStore'
-import ReactPaginate from 'react-paginate'
 export default function Home({currentUser, preventReload}) {
 
 
@@ -26,12 +25,16 @@ const [isLoading, setisLoading] = useState(false)
 const [proDetail, setproDetail] = useState([])
 const [allImages, setallImages] = useState([])
 const [isDone , setIsDone] = useState (false)
-const [pageNumber, setpageNumber] = useState(0)
-
-const itemsPerPage = 12;
-const pageVisited = pageNumber * itemsPerPage
+const [visible, setVisible] = useState(8)
 
 
+
+function scrollUp () {
+
+  $("html, body").animate({
+    scrollTop: $(".fetProducts").offset().top
+}, 500);  
+}
 
   async function getAllProducts(value,pageParam) {
     setisLoading(true)
@@ -42,7 +45,6 @@ const pageVisited = pageNumber * itemsPerPage
    })
    
     setallProducts(data.data)
-    
     setisLoading(false)
   
   }  
@@ -81,8 +83,8 @@ const pageVisited = pageNumber * itemsPerPage
    }
 
 
-   const displayProducts = allProducts?.slice(pageVisited ,pageVisited+itemsPerPage).map((pro,index)=> {
-    return < div className="col-md-3 col-sm-4 col-4  position-relative hover-quick"  key={index}>
+   const displayProducts = allProducts?.slice(0,visible).map((pro,index)=> {
+    return < div className="col-md-3 col-sm-6 col-6  position-relative hover-quick"  key={index}>
     
     <Link to={`/prodetails/${pro.id}`} className='text-decoration-none '>
     
@@ -175,10 +177,15 @@ Quick view
 
 
 </div>
-
+ 
 
             </div>
-   })
+
+
+   }
+   
+   )
+
 
 async function getProd(id) {
   let response = await addProductToCart(id)
@@ -193,23 +200,11 @@ async function getProd(id) {
     document.getElementById("myimage").setAttribute("src" , imgSrc)
 }
 
-function getUserName() {
-
-  setTimeout(function() {
-    $(".welcomeBack-name").fadeIn(2000,()=>{
-      $(".welcomeBack-name").fadeOut(2000)
-    })
-    preventReload()
-}, 2000);
-
-
+const showMoreItems = () => {
+  setVisible((prevValue)=> prevValue+4)
+  
 }
-const PageCount = Math.ceil(allProducts?.length / itemsPerPage)
-const changePage = ({selected}) =>{
 
-setpageNumber(selected)
-
-}
 return <>
 
 
@@ -240,19 +235,9 @@ return <>
   <div className="row fetProducts   position-relative" >
 
     {displayProducts}
-    <ReactPaginate
-    previousLabel={<i className="fa-solid fa-chevron-left"></i>}
-    nextLabel ={ <i className="fa-solid fa-chevron-right"></i>}
-    pageCount={PageCount}
-    onPageChange={changePage}
-    containerClassName={"paginationBttns"}
-    previousLinkClassName={"previousBttn"}
-    nextLinkClassName={"nextBttn"}
-    disabledClassName={"paginationDisabled"}
-    activeClassName={"paginationActive"}
-    
-    />
 
+{visible !== allProducts.length ?     <button onClick={showMoreItems} className='btn btn-outline-primary w-50 m-auto mt-4'>Load More</button>
+ : <><i onClick={scrollUp} className="fa-solid fa-circle-up fs-3 text-center mt-5 text-primary cursor-pointer"></i></>}
 
 
         </div>

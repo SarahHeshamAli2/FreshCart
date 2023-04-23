@@ -3,12 +3,18 @@ import {Link, useNavigate} from "react-router-dom"
 import logo from "../../images/freshcart-logo.svg"
 import { useContext } from 'react'
 import $ from "jquery"
+
 import CartStoreProvider, { cartStore } from '../../Context/CartStore'
  export default function Navbar({currentUser ,clearUserData}) {
   const{numberOfCartItems,getCartProducts,updateCartProducts,cartProducts,getWhishList}=useContext(cartStore)
+  function getCarting() {
+    getCartProducts()
+    hideNav()
+  }
 
  const navigate = useNavigate()
 function navigateToHome() {
+  hideNav()
 clearUserData()
 navigate("/login")
 
@@ -24,7 +30,7 @@ $(".navbar-toggler").attr("aria-expanded","false")
 }
 let heightOfNav =$(".navbar").outerHeight(true)
 useEffect(function(){
-  
+
   updateCartProducts()
 
   
@@ -57,7 +63,7 @@ return <>
         {currentUser !=null ? <> 
           <li className="nav-item position-relative mx-3">
           <span className=" position-absolute top-0 start-100 translate-middle p-2 bg-danger text-white badge">{numberOfCartItems}</span>
-        <Link onClick={getCartProducts} className="nav-link" to="/cart"><img src={require("../../images/shopping-cart.png")} width={30} alt="" /></Link>
+        <Link onClick={getCarting} className="nav-link" to="/cart"><img src={require("../../images/shopping-cart.png")} width={30} alt="" /></Link>
         </li>
         <div className="dropdown">
   <button className="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -24,11 +24,12 @@ import AllOrders from './Components/AllOrders/AllOrders'
 import EmptyCart from './Components/EmptyCart/EmptyCart'
 import WishList from './Components/getWishList/WishList'
 import ForgotPass from './Components/ForgotPass/ForgotPass'
+import SaveAdress from './Components/SaveYourAdress/SaveAdress'
+import UserAdress from './Components/UserAdress/UserAdress'
 
 
 
 export default function App() {
-
 
     function ProtectedRoute({children}) {
 
@@ -54,7 +55,6 @@ export default function App() {
 if(localStorage.getItem("userToken") !=null && currentUser == null) {
 
     getUserDataDecoded()
-
 }
 
     },[])
@@ -71,14 +71,15 @@ if(localStorage.getItem("userToken") !=null && currentUser == null) {
         localStorage.setItem("currentUserId",decodedToken.id)
 
 
-
     }
+
+
 
     function clearUserData () {
         localStorage.removeItem("userToken")
         localStorage.removeItem("decode")
         setCurrentUser(null)
-   
+    
 
 
     }
@@ -87,7 +88,7 @@ const router = createHashRouter([
     {path:"",element:<CartStoreProvider><Layout clearUserData={clearUserData}  currentUser={currentUser}/></CartStoreProvider>,children:[{index:true,element:<CartStoreProvider><Home  currentUser={currentUser} /></CartStoreProvider>},
     {path:"home" , element:<Home />},
     
-    {path:"login",element:<Login  getUserDataDecoded={getUserDataDecoded} currentUser={currentUser} />},
+    {path:"login",element:<Login     getUserDataDecoded={getUserDataDecoded} currentUser={currentUser}  />},
     {path:"prodetails/:id",element:<CartStoreProvider><ProDetails/></CartStoreProvider>},
     {path:"profile" , element:<ProtectedRoute><Profile currentUser={currentUser}/></ProtectedRoute>},
     {path:"brandDetails/:id",element:<CartStoreProvider><BrandDetails/></CartStoreProvider>},
@@ -98,6 +99,8 @@ const router = createHashRouter([
     {path:"eCart",element:<EmptyCart/>},
     {path:"payment",element:<ProtectedRoute><CartStoreProvider><Payment/></CartStoreProvider></ProtectedRoute>},
     {path:"wishlist",element:<ProtectedRoute><CartStoreProvider><WishList/></CartStoreProvider></ProtectedRoute>},
+    {path:"saveAdress",element:<ProtectedRoute><CartStoreProvider><SaveAdress /></CartStoreProvider></ProtectedRoute>},
+    {path:"userAdress",element:<ProtectedRoute><CartStoreProvider><UserAdress currentUser={currentUser}/></CartStoreProvider></ProtectedRoute>},
     {path:"cart",element:<CartStoreProvider><Cart currentUser={currentUser}/></CartStoreProvider>},
     {path:"emptyCart",element:<CartStoreProvider><EmptyCartError/></CartStoreProvider>},
     {path:"register",element:<Register/>},{path:"*",element:<Notfound/>}]}

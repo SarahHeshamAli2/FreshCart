@@ -66,7 +66,7 @@ const [brandDetails, setBrandDetails] = useState(null)
     {brandDetails ? <div className="container my-5 py-5">
    
         <div className="row g-5">
-            {brandDetails.length == 0 ? <NoItems/> : brandDetails.map((pro,indx)=>     < div className="col-md-4 col-5 hover-quick position-relative" key={indx}>
+            {brandDetails.length == 0 ? <NoItems/> : brandDetails.map((pro,indx)=>     < div className="col-md-4 col-6 hover-quick position-relative" key={indx}>
             <Link to={`/prodetails/${pro.id}`} className='text-decoration-none '>
         
         <div className="inner-col ">

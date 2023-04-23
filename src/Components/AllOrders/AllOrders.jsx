@@ -44,7 +44,7 @@ return <>
         <img src={item.product.imageCover} alt="" className='w-100 '/>
         </div>
         <div className='mx-2'>
-            <h5 className='product'>{item.product.brand.name}</h5>
+            <h5 className='product'>{item?.product?.brand?.name}</h5>
             <h5 className='p-item'>{item.product.title}</h5>
         </div>
     </div>

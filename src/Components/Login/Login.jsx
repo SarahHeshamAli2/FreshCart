@@ -4,10 +4,14 @@ import * as Yup from "yup"
 import axios from "axios"
 import $ from "jquery"
 import { Link, useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import  { cartStore } from '../../Context/CartStore'
 
 
 
-export default function Login({getUserDataDecoded, currentUser}) {
+
+export default function Login({getUserDataDecoded, currentUser }) {
+
 const user = {
 
 email:"",
@@ -63,7 +67,6 @@ password:Yup.string().required("password is requried").matches(/^[A-Z][a-z0-9]{5
         $(".fa-check").fadeIn(500)
         $(".successMsg").fadeIn(2000 ,function() {
           localStorage.setItem("userToken" , data.token)
-
           
           getUserDataDecoded()
         
@@ -131,7 +134,7 @@ password:Yup.string().required("password is requried").matches(/^[A-Z][a-z0-9]{5
 }
 
 
-      <form onSubmit={formik.handleSubmit } >
+      <form onSubmit={formik.handleSubmit} >
        
           
         <label className='my-2' htmlFor="email">email:</label>
@@ -165,6 +168,8 @@ password:Yup.string().required("password is requried").matches(/^[A-Z][a-z0-9]{5
     
     
         {isLoading? <button  className='btn btn-primary load-bt' type='button'><i className="fa-solid fa-spinner fa-spin  mt-3"></i></button>:<button type='submit' className='btn btn-primary mt-3 log-bt'>Login</button>}
+        <div>
+        </div>
         <div className='my-2'>
  
         </div>

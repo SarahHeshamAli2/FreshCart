@@ -7,7 +7,9 @@ import EmptyCart from '../Components/EmptyCart/EmptyCart';
 import Loading from '../Components/Loading/Loading';
 import { useNavigate } from 'react-router-dom';
 
+import { app } from '../firebas.config';
 
+import { GoogleAuthProvider,getAuth,signInWithPopup,signOut} from "firebase/auth";
 
 export const cartStore =createContext()
 
@@ -25,25 +27,38 @@ const [lo,setIsLo] = useState(false)
 const [wishList, setWishList] = useState(null)
 const [proDetail, setproDetail] = useState([])
 const [Lod, setLod] = useState(null)
-function validateUpdatedCart() {
-        let inputs=Array.from(document.querySelectorAll(".inp"))
-        let buttons =Array.from (document.querySelectorAll("#decBtn"))
-        for(let i=0 ; i<inputs.length ; i++) {
-            
-        for(let n=0 ; n<buttons.length ;n++) {
-                if(inputs[i].value <= 2 ){
-                             buttons[n].addEventListener("click",function(e){e.target.setAttribute("disabled","")})
-                                console.log(inputs[i].value);
-                     
-                        }
-                
-        }
-       
-        }
+const [filtred , setFiltred] = useState(null)
+const [newAdress, setAdress] = useState([])
 
+
+      
+function setNewAdress() {
+let shippingDetails =     [  {
+        "details": document.querySelector("#address").value,
+        "phone": document.querySelector("#phone").value,
+        "city": document.querySelector("#city").value
+        }]
+
+   
+setAdress (shippingDetails)
     
-      }
+  
 
+ 
+    localStorage.setItem("adress",JSON.stringify(newAdress))
+    console.log(newAdress);
+
+}
+function deleteAdress(id) {
+      newAdress.splice(id,1)
+      console.log(newAdress);;
+    }
+
+    function filterArray() {
+
+  
+        setCartProducts( cartProducts?.filter((pro)=>pro.count > 0))
+    }
 
 async function deleteItemFromCart(id) {
 
@@ -52,6 +67,7 @@ async function deleteItemFromCart(id) {
                         headers:{"token":localStorage.getItem("userToken")}
                      })
                      if(data.status == "success") {
+
                         $(".badge").text(data.numOfCartItems)
                         setNumberOfCartItems( data.numOfCartItems)
                         setTotalCartPrice(data.data.totalCartPrice)
@@ -92,6 +108,7 @@ try {
 }
 
 }
+
 
 async function getWhishList() {
 
@@ -165,7 +182,7 @@ setLod(false)
 
         
         useEffect(function(){
-
+               filterArray()
     
 
         },[])
@@ -180,16 +197,24 @@ setLod(false)
                         headers: {"token" : localStorage.getItem("userToken")}
         
                          })
-                      
-                         setNumberOfCartItems(data.numOfCartItems)
                        
+                         setNumberOfCartItems(data.numOfCartItems)
                          setTotalCartPrice(data.data.totalCartPrice)
                          setCartProducts(data.data.products)
+                       
+
                         setIsLoad(false)
+                       
+                    
+                       
                         setCartId(data.data._id)
+
                       
                          localStorage.setItem("cartId",data.data._id)
-                        } catch (error) {
+                        } 
+                        
+                     
+                        catch (error) {
                         
                         if(error.response.data.statusMsg == "fail" ) {
                                 setNumberOfCartItems(0)
@@ -199,6 +224,8 @@ setLod(false)
                 }
 
         }
+
+
 async function updateCartProducts(id,newCount) {
         setIsLoad(true)
         try {
@@ -207,14 +234,14 @@ async function updateCartProducts(id,newCount) {
                 "count": newCount
            
 },{headers:{"token":localStorage.getItem("userToken")}})
-validateUpdatedCart()
 
 if(data.status == "success") {
         $(".updateMsg").fadeIn(500).fadeOut(500)
+        $(".badge").text(data.numOfCartItems)
         setNumberOfCartItems( data.numOfCartItems)
         setTotalCartPrice(data.data.totalCartPrice)
         setCartProducts( data.data.products)
-      
+ 
     
      }
      setIsLoad(false)
@@ -234,7 +261,6 @@ if(data.status == "success") {
 
         
 }
-
 
 async function addToWhishList(proId) {
         setIsLo(true)
@@ -273,7 +299,7 @@ if(data.status=="success") {
         }
 
 }
-        return <cartStore.Provider value={{addProductToCart,isLoad,cartData,numberOfCartItems,totalCartPrice,cartProducts,isLoad,deleteItemFromCart, updateCartProducts,getCartProducts,cartId,addToWhishList,lo,deleteFromWishList,getWhishList,wishList}}>
+        return <cartStore.Provider app={app} value={{addProductToCart,isLoad,cartData,numberOfCartItems,totalCartPrice,cartProducts,isLoad,deleteItemFromCart, updateCartProducts,getCartProducts,cartId,addToWhishList,lo,deleteFromWishList,getWhishList,wishList,newAdress,setNewAdress, deleteAdress, filterArray  }}>
      
         <p style={{zIndex:"58851471",display:"none"}} className='alert alert-danger position-fixed top-50 notLogged'>You are not logged in. Please login to get access</p>
                  

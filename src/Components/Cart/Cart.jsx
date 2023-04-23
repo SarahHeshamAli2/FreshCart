@@ -11,18 +11,20 @@ export default function Cart({currentUser}) {
 
 
 
-
-
   async function getCart() {
+  
      await getCartProducts()
 
  }
  
+ function setUpdateCart(id , count,e) {
+    updateCartProducts(id,count)
+   
+ }
 
 useEffect(function() {
 
 getCart()
-{console.log(document.querySelector("#decBtn"))}
 
 
 },[])
@@ -63,7 +65,6 @@ getCart()
   
 
    {cartProducts.map((pro,indx)=>  <div className="row align-items-center border-bottom py-2 my-2" key={indx}>
- 
    <div className="col-md-2 col-6 p-0">
 
 <img src={pro.product.imageCover} alt=""  className='w-100'/>
@@ -74,16 +75,16 @@ getCart()
        {pro.product.title?.slice(0,pro.product.title.indexOf(" " , 20))}
     </h6>
 
-    <h4 className='h6 main-color my-3'>price : {pro.price}<span>egp</span></h4>
+    <h4  className='h6 main-color my-3'>price : {pro.price}<span>egp</span></h4>
         </div>
         <div className="right my-2">
-            {/* <button className='btn btn-outline-success' onClick={function(){updateCartProducts(pro.product.id , pro.count+1)}}>+</button>
+            <button className='btn btn-outline-success' onClick={function(){updateCartProducts(pro.product.id , pro.count+1)}}>+</button>
            <input type='button'   className='inp' value={pro.count} id='dec' min={1}/> 
-           <button className='btn btn-outline-success'  onClick={function(){updateCartProducts(pro.product.id , pro.count-1)}} id='decBtn'>- </button> */}
-
-           {isLoad ?<i className="fa-solid fa-spinner fa-spin   "></i> :           <input type='number' placeholder='Quantity' className='form-control w-25' value={pro.count} min={1} onChange={function(e){updateCartProducts(pro.product.id , e.target.value)}}/>
+           {pro.count >=2      ?   <button className='btn btn-outline-success'  onClick={function(e){setUpdateCart(pro.product.id , pro.count-1 )}}   id='decBtn'>- </button> : 
+            <button className='btn btn-outline-success' disabled  >- </button>
 }
-        </div>
+
+    </div>
 
         <div>
             <i className="fa-solid fa-trash-can bg text-danger"></i>

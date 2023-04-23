@@ -233,8 +233,14 @@ a {
     display: none !important;
   }
   .sort {
-
-    padding: 0;
+    display: none;
+ 
+  }
+  .rating {
+    justify-content: flex-start !important;
+  }
+  #featured {
+    margin: 0 !important;
   }
  }
 
