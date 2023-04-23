@@ -38,6 +38,11 @@ $(".add-btn").fadeOut(1000)
 
 }
 
+function addToCart(proId) {
+    addProductToCart(proId)
+    $("html, body").animate({
+        scrollTop:0
+    }, 500);  }
  const navigate = useNavigate()
 function getImgSrc( e) {
 
@@ -104,7 +109,7 @@ function navigateToCart () {
                     <p>Quantity: {proDetail.quantity}</p>
                     <p>Rate: {proDetail.ratingsAverage}</p>
                     <p className=' love-btn' onClick={function(){addToWhishList(proDetail._id)}}> <i  className="fa-solid fa-heart text-secondary mx-2 cursor-pointer"></i></p>
-                    {isLoad? <button  className='btn btn-success w-100 loading-btn' type='button' ><i className="fa-solid fa-spinner fa-spin  mt-3"></i></button> :                      <button className='btn btn-success w-100 add-btn' onClick={function(){addProductToCart(proDetail._id)}}>Add to cart</button>
+                    {isLoad? <button  className='btn btn-success w-100 loading-btn' type='button' ><i className="fa-solid fa-spinner fa-spin  mt-3"></i></button> :                      <button className='btn btn-success w-100 add-btn' onClick={function(){addToCart(proDetail._id)}}>Add to cart</button>
 
                     
 

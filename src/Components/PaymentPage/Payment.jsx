@@ -96,11 +96,11 @@ try {
   <div className="container w-50 m-auto my-4 py-5">
     <form >
     <label className='my-2' htmlFor="address">Address details</label>
-    <input id='address' type="text" className='form-control' placeholder='street name / building name' />
+    <input id='address' type="text" className='form-control' placeholder='street name / building name'  required/>
     <label className='my-2' htmlFor="phone">Phone Number</label>
-    <input id='phone' type="text" className='form-control' placeholder='e.g. 1xxxxxxxxxx'/>
+    <input id='phone' type="text" className='form-control' placeholder='e.g. 1xxxxxxxxxx' required/>
     <label className='my-2' htmlFor="city">City/Area</label>
-    <input id='city' type="text" placeholder='e.g. Dokki / New cairo' className='form-control'/>
+    <input id='city' type="text" placeholder='e.g. Dokki / New cairo' className='form-control' required/>
     <div style={{display:'none'}} className='fw-bolder my-3'>Please wait..</div> 
 
     {loading  ?
